@@ -9,4 +9,8 @@ const pool = new Pool({
   port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 5432,
 })
 
+// export const query = (text: string, params?: any[]) => {
+//   return pool.query(text, params)
+// }
+
 export default pool;
