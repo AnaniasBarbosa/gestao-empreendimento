@@ -1,6 +1,6 @@
 import Servico from "../models/Servico";
 import { Request, Response } from 'express';
-import { getAllServicos, createServico, getServicoById } from "../services/servico.service";
+import { getAllServicos, createServico, getServicoById, updateServico } from "../services/servico.service";
 import { validateCreateServicoDTO } from "../validators/servico.validator";
 import CreateServicoDTO from "../dtos/CreateServicoDTO";
 
@@ -54,4 +54,30 @@ async function getServicoByIdHandler(req: Request<ReqParams>, res: Response) {
   }
 }
 
-export { getServicos, createNewServico, getServicoByIdHandler };
+async function updateServicoHandler(req: Request<ReqParams>, res: Response) {
+  try {
+    const id = parseInt(req.params.id, 10);
+    if (Number.isNaN(id)) {
+      return res.status(400).json({ message: 'ID inválido' });
+    }
+
+    const data: CreateServicoDTO = req.body;
+    const { valid, errors } = validateCreateServicoDTO(data);
+    if (!valid) {
+      return res.status(400).json({ errors });
+    }
+
+    const updatedServico: Servico | null = await updateServico(id, data);
+
+    if (!updatedServico) {
+      return res.status(404).json({ error: 'Servico not found' });
+    }
+
+    res.status(200).json(updatedServico);
+  } catch (error) {
+    console.error('Error updating servico:', error);
+    res.status(500).json({ error: 'Failed to update servico' });
+  }
+}
+
+export { getServicos, createNewServico, getServicoByIdHandler, updateServicoHandler };
