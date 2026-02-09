@@ -1,7 +1,7 @@
 interface CreateServicoDTO {
-  nome: string;
+  titulo: string;
   descricao?: string;
-  preco: number;
+  valor_padrao: number;
 }
 
 export default CreateServicoDTO;
