@@ -17,4 +17,9 @@ async function createServico(servico: CreateServicoDTO): Promise<Servico> {
   return result.rows[0];
 }
 
-export { getAllServicos, createServico };
+async function getServicoById(id: number): Promise<Servico | null> {
+  const result = await pool.query('SELECT * FROM servico WHERE id = $1', [id]);
+  return result.rows[0] || null;
+}
+
+export { getAllServicos, createServico, getServicoById };
