@@ -1,8 +1,8 @@
 interface Servico {
   id: number;
-  nome: string;
-  descricao: string | null;
-  preco: number;
+  titulo: string;
+  descricao?: string;
+  valor_padrao: number;
 }
 
 export default Servico;

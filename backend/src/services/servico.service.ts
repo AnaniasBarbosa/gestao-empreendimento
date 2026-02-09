@@ -1,4 +1,5 @@
 import Servico from "../models/Servico";
+import CreateServicoDTO from "../dtos/CreateServicoDTO";
 import pool from "../db";
 
 async function getAllServicos(): Promise<Servico[]> {
@@ -6,4 +7,14 @@ async function getAllServicos(): Promise<Servico[]> {
   return result.rows;
 }
 
-export { getAllServicos };
+async function createServico(servico: CreateServicoDTO): Promise<Servico> {
+  const { titulo, descricao, valor_padrao } = servico;
+  
+  const result = await pool.query(
+    'INSERT INTO servico (titulo, descricao, valor_padrao) VALUES ($1, $2, $3) RETURNING *',
+    [titulo, descricao, valor_padrao]
+  );
+  return result.rows[0];
+}
+
+export { getAllServicos, createServico };
