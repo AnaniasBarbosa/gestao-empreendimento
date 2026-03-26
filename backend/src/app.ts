@@ -12,7 +12,7 @@ app.use('/servicos', servicoRoutes);
 app.use('/atendimentos', atendimentoRoutes);
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Bem-vindo à API de Manicure Empreendedora!');
+  res.send('API de gestao financeira!');
 });
 
 app.listen(PORT, () => {
