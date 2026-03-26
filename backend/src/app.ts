@@ -12,7 +12,7 @@ app.use('/servicos', servicoRoutes);
 app.use('/atendimentos', atendimentoRoutes);
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('API de gestao financeira!');
+  res.send('API de gestao financeira para testes de CI/CD!');
 });
 
 app.listen(PORT, () => {
